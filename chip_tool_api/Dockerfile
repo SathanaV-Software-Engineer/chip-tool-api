@@ -22,7 +22,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # Download prebuilt ARM64 chip-tool
-RUN wget -O chip-tool-linux.zip "https://github.com/SathanaV-Software-Engineer/chip-tool-api/releases/download/v1.0.0/chip-tool-linux.zip" && \
+RUN wget -O chip-tool-linux.zip "https://github.com/SathanaV-Software-Engineer/chip-tool-api/releases/download/v2.0.0/chip-tool-linux.zip" && \
     mkdir -p ./connected_home_ip/out/ && \
     unzip chip-tool-linux.zip -d ./connected_home_ip/out/ && \
     chmod +x ./connected_home_ip/out/chip-tool-linux/chip-tool && \
