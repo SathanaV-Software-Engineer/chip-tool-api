@@ -22,10 +22,11 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # Download prebuilt ARM64 chip-tool
-RUN wget -O chip-tool_arm64 https://github.com/nrfconnect/sdk-connectedhomeip/releases/download/v3.0.0/chip-tool_arm64 && \
-    chmod +x chip-tool_arm64 && \
-    mkdir -p ./connected_home_ip/out/chip-tool-linux && \
-    mv chip-tool_arm64 ./connected_home_ip/out/chip-tool-linux/chip-tool
+RUN wget -O chip-tool-linux.zip "https://github.com/SathanaV-Software-Engineer/chip-tool-api/releases/tag/v1.0.0/chip-tool-linux.zip" && \
+    mkdir -p ./connected_home_ip/out/ && \
+    unzip chip-tool-linux.zip -d ./connected_home_ip/out/ && \
+    chmod +x ./connected_home_ip/out/chip-tool-linux/chip-tool && \
+    rm chip-tool-linux.zip
 
 
 # Copy application code
