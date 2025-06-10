@@ -11,5 +11,7 @@ ports:
 homeassistant: 2023.0.0
 arch:
   - amd64
+  - aarch64
+  - armv7
 options: {}
 schema: {}
