@@ -1,4 +1,4 @@
-FROM ubuntu:24.04
+FROM --platform=linux/amd64 ubuntu:24.04
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -22,7 +22,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # Download prebuilt ARM64 chip-tool
-RUN wget -O chip-tool-linux.zip "https://github.com/SathanaV-Software-Engineer/chip-tool-addon-python-server/releases/download/v3.0.0/chip-tool-linux.zip" && \
+RUN wget -O chip-tool-linux.zip "https://github.com/SathanaV-Software-Engineer/chip-tool-api/releases/download/v3.3.0/chip-tool-linux.zip" && \
     mkdir -p ./connected_home_ip/out/ && \
     unzip chip-tool-linux.zip -d ./connected_home_ip/out/ && \
     chmod +x ./connected_home_ip/out/chip-tool-linux/chip-tool && \
