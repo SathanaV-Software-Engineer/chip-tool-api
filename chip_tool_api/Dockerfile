@@ -1,7 +1,11 @@
 FROM --platform=linux/amd64 ubuntu:24.04
 
+# Install QEMU emulation
+RUN apt-get update && apt-get install -y qemu-user-static
+RUN update-binfmts --enable
+
 # Install dependencies
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 \
     python3-pip \
     python3-venv \
@@ -16,13 +20,14 @@ RUN apt-get update && apt-get install -y \
     avahi-daemon \
     libglib2.0-dev \
     sudo \
+    ca-certificates \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
 WORKDIR /app
 
 # Download prebuilt ARM64 chip-tool
-RUN wget -O chip-tool-linux.zip "https://github.com/SathanaV-Software-Engineer/chip-tool-api/releases/download/v3.3.0/chip-tool-linux.zip" && \
+RUN curl -L -o chip-tool-linux.zip "https://github.com/SathanaV-Software-Engineer/chip-tool-api/releases/download/v3.3.0/chip-tool-linux.zip" && \
     mkdir -p ./connected_home_ip/out/ && \
     unzip chip-tool-linux.zip -d ./connected_home_ip/out/ && \
     chmod +x ./connected_home_ip/out/chip-tool-linux/chip-tool && \
