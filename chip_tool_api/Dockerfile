@@ -1,17 +1,6 @@
 FROM --platform=linux/amd64 ubuntu:24.04
 
-# Set up repositories
-RUN echo "deb http://deb.debian.org/debian bookworm main contrib non-free" > /etc/apt/sources.list
-RUN echo "deb http://security.debian.org/debian-security bookworm-security main contrib non-free" >> /etc/apt/sources.list
-
-# Add multiarch support
-RUN dpkg --add-architecture amd64
-
-# Install QEMU emulation
-RUN apt-get update && apt-get install -y qemu-user-static
-RUN update-binfmts --enable
-
-# Install dependencies
+# Install dependencies directly without modifying sources
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 \
     python3-pip \
