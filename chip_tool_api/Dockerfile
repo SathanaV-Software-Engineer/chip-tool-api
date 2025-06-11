@@ -1,22 +1,28 @@
-FROM --platform=linux/arm64 ubuntu:22.04
+FROM --platform=linux/arm64 arm64v8/ubuntu:22.04
 
-ENV DEBIAN_FRONTEND=noninteractive
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    ca-certificates
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    python3 python3-pip python3-venv wget unzip git libssl-dev \
-    libavahi-compat-libdnssd-dev curl build-essential iproute2 \
-    avahi-daemon libglib2.0-dev sudo && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
-
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    python3-venv \
+    wget \
+    unzip \
+    git \
+    libssl-dev \
+    libavahi-compat-libdnssd-dev \
+    curl \
+    build-essential \
+    iproute2 \
+    avahi-daemon \
+    libglib2.0-dev \
+    sudo \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
 WORKDIR /app
 
 # Download prebuilt ARM64 chip-tool
-RUN curl -L -o chip-tool-linux.zip "https://github.com/SathanaV-Software-Engineer/chip-tool-api/releases/download/v3.3.0/chip-tool-linux.zip" && \
+RUN wget -O chip-tool-linux.zip "https://github.com/SathanaV-Software-Engineer/chip-tool-api/releases/download/v5.0.0/chip-tool-linux.zip" && \
     mkdir -p ./connected_home_ip/out/ && \
     unzip chip-tool-linux.zip -d ./connected_home_ip/out/ && \
     chmod +x ./connected_home_ip/out/chip-tool-linux/chip-tool && \
