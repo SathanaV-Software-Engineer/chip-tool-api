@@ -1,23 +1,16 @@
-FROM debian:bullseye
+FROM --platform=linux/arm64 ubuntu:22.04
 
-# Install dependencies directly without modifying sources
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    python3 \
-    python3-pip \
-    python3-venv \
-    wget \
-    unzip \
-    git \
-    libssl-dev \
-    libavahi-compat-libdnssd-dev \
-    curl \
-    build-essential \
-    iproute2 \
-    avahi-daemon \
-    libglib2.0-dev \
-    sudo \
-    ca-certificates \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    ca-certificates
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3 python3-pip python3-venv wget unzip git libssl-dev \
+    libavahi-compat-libdnssd-dev curl build-essential iproute2 \
+    avahi-daemon libglib2.0-dev sudo && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
 
 # Set working directory
 WORKDIR /app
